@@ -6,11 +6,6 @@
 import ugame
 import stage
 
-<<<<<<< HEAD
-# this function is the main game (game_scene)
-=======
-# this function says "Hello, my name, and happy new year"
->>>>>>> 21b76a65a1bad128e22666c5fe9faff22172a44e
 def game_scene():
 
 # the image bank for CircuitPython
@@ -33,9 +28,4 @@ game.render_block()
         pass # for now, this is a placeholder
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     game_scene()
-    
-=======
-    game_scene()
->>>>>>> 21b76a65a1bad128e22666c5fe9faff22172a44e
