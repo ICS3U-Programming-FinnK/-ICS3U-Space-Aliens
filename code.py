@@ -22,7 +22,7 @@ def game_scene():
     game = stage.Stage(ugame.display, 60)
 
     # set layers of sprites, they will show up in order
-    game.layers = [background]
+    game.layers = [ship] + [background]
 
     # render the sprites
     game.render_block()
