@@ -7,7 +7,6 @@ import ugame
 import stage
 
 # this function says "Hello, my name, and happy new year"
-
 def game_scene():
 
 
@@ -22,5 +21,5 @@ def game_scene():
     while True:
         pass #for now, this is a placeholder
 
-    if __name__ == "__main__":
-        game_scene()
+if __name__ == "__main__":
+    game_scene()
