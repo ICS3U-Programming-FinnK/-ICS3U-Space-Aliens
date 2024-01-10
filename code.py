@@ -29,7 +29,13 @@ def game_scene():
 
     # game loop
     while True:
-        pass # for now, this is a placeholder
+        # get user input
+        
+        # update game logic
+
+        # redraw the sprites
+        game.render_sprited([ship])
+        game.tick()
 
 if __name__ == "__main__":
     game_scene()
