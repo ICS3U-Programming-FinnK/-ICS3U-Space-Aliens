@@ -5,6 +5,7 @@
 
 import ugame
 import stage
+import constants
 
 def game_scene():
 
@@ -16,7 +17,7 @@ def game_scene():
     background = stage.Grid(image_bank_background, 10, 8)
 
     # a sprite that will be updated every frame
-    ship = stage.Sprite(image_bank_sprites, 5, 75, 66)
+    ship = stage.Sprite(image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE))
 
     # creating a stage for the background to show up on and set fps to 60
     game = stage.Stage(ugame.display, 60)
@@ -31,7 +32,6 @@ def game_scene():
     while True:
         # get user input
         keys = ugame.buttons.get_pressed()
-
         if keys & ugame.K_X:
             print("A")
         if keys & ugame.K_O:
