@@ -34,7 +34,7 @@ def game_scene():
         # update game logic
 
         # redraw the sprites
-        game.render_sprited([ship])
+        game.render_sprited ([ship])
         game.tick()
 
 if __name__ == "__main__":
