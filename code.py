@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+# Created by: Finn Kitor
+# Created on: January 8th, 2023
+# This program is a space fighter game
+
 import ugame
 import stage
 
