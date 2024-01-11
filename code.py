@@ -17,12 +17,12 @@ def menu_scene():
     text = []
     text1 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
     text1.move(20, 10)
-    text1.text("Kitor Game Studios presents SpaceFighter")
+    text1.text("SpaceFighter")
     text.append(text1)
 
     text2 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
     text2.move(40, 110)
-    text2.text("PRESS THE START BUTTON TO LAUNCH SpaceFighter!")
+    text2.text("PRESS START!")
     text.append(text2)
 
     # set background to image 0 in the image bank and size (10x8 tiles of size 16x16)
