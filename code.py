@@ -149,6 +149,12 @@ def game_scene():
     #for the score
     score = 0
 
+    score_text = stage.Text(width=29, height=14)
+    score_text.clear()
+    score_text.cursor(0,0)
+    score_text.move(1,1)
+    score_text.text("Score: {0}".format (score))
+
     #alien function, it moves them on the screen
     def show_alien():
         for alien_number in range(len(aliens)):
@@ -208,7 +214,7 @@ def game_scene():
     game = stage.Stage(ugame.display, constants.FPS)
 
     # set layers of sprites, they will show up in order
-    game.layers = lasers + [ship] + aliens + [background]
+    game.layers =  [score_text] + lasers + [ship] + aliens + [background]
 
     # render the sprites
     game.render_block()
@@ -284,8 +290,15 @@ def game_scene():
                 if aliens[alien_number].y > constants.SCREEN_Y:
                     aliens[alien_number].move(constants.OFF_SCREEN_X,
                                                   constants.OFF_SCREEN_Y)
-                        
                     show_alien()
+                    score -= 1
+                    if score < 0:
+                        score = 0
+                    score_text.clear()
+                    score_text.cursor(0,0)
+                    score_text.move(1,1)
+                    score_text.text("Score: {0}".format(score))
+
         # when the laser hits the alien
         for laser_number in range(len(lasers)):
             if lasers[laser_number].x > 0:
@@ -304,6 +317,10 @@ def game_scene():
                             show_alien()
                             show_alien()  
                             score = score + 1
+                            score_text.clear()
+                            score_text.cursor(0,0)
+                            score_text.move(1,1)
+                            score_text.text("Score: {0}".format(score))
 
         # redraw the sprites
         game.render_sprites(lasers + aliens + [ship])
