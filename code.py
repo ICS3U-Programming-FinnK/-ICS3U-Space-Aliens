@@ -192,6 +192,7 @@ def game_scene():
                                       constants.OFF_SCREEN_X,
                                       constants.OFF_SCREEN_Y)
         aliens.append(a_single_alien)
+
 #place an alien on the screen
     show_alien()
     
@@ -272,17 +273,19 @@ def game_scene():
                 if lasers[laser_number].y < constants.OFF_TOP_SCREEN:
                     lasers[laser_number].move(constants.OFF_SCREEN_X,
                                                   constants.OFF_SCREEN_Y)
+                    
                         
         # each frame moves the aliens down that are on the screen
-            for alien_number in range(len(aliens)):
-                if aliens[alien_number].x > 0:
-                    aliens[alien_number].move(aliens[alien_number].x,
+        for alien_number in range(len(aliens)):
+            if aliens[alien_number].x > 0:
+                aliens[alien_number].move(aliens[alien_number].x,
                                               aliens[alien_number].y +
                                                 constants.ALIEN_SPEED)
-                    if aliens[alien_number].y > constants.SCREEN_Y:
-                        aliens[alien_number].move(constants.OFF_SCREEN_X,
+                if aliens[alien_number].y > constants.SCREEN_Y:
+                    aliens[alien_number].move(constants.OFF_SCREEN_X,
                                                   constants.OFF_SCREEN_Y)
-                        show_alien()
+                        
+                    show_alien()
         # when the laser hits the alien
         for laser_number in range(len(lasers)):
             if lasers[laser_number].x > 0:
@@ -291,19 +294,19 @@ def game_scene():
                         if stage.collide(lasers[laser_number].x + 6, lasers[laser_number].y + 2,
                                          lasers[laser_number].x + 11, lasers[laser_number].y + 12,
                                          aliens[alien_number].x + 1, aliens[alien_number].y,
-                                         aliens[alien_number].x + 15, aliens[alien_number].y + 15,):
+                                         aliens[alien_number].x + 15, aliens[alien_number].y + 15):
                             #if you hit an alien
                             aliens[alien_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
-                        lasers[laser_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
-                        boom_sound = open("boom.wav", 'rb')
-                        sound.play(boom_sound)
-                        sound.stop()
-                        show_alien()
-                        show_alien()  
-                        score = score + 1
+                            lasers[laser_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+                            boom_sound = open("boom.wav", 'rb')
+                            sound.play(boom_sound)
+                            sound.stop()
+                            show_alien()
+                            show_alien()  
+                            score = score + 1
 
         # redraw the sprites
-        game.render_sprites(lasers + [ship] + aliens)
+        game.render_sprites(lasers + aliens + [ship])
         game.tick()
 
 if __name__ == "__main__":
