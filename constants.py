@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Created by: Finn Kitor
 # Created on: January 8th, 2023
-# these are the constants for space fighter game
+# these are the constants for the space fighter game
 
 SCREEN_X = 160
 SCREEN_Y = 128
