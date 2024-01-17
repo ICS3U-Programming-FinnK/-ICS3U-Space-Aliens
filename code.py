@@ -7,6 +7,7 @@ import ugame
 import stage
 import time
 import random
+import supervisor
 import constants
 
 
@@ -111,14 +112,29 @@ def menu_scene():
     # add the text objects
     text = []
     text1 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
-    text1.move(20, 10)
-    text1.text("SpaceFighter")
+    text1.move(10, 10)
+    text1.text("Kitor Game Studios")
     text.append(text1)
-
+    
     text2 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
-    text2.move(40, 110)
-    text2.text("PRESS START!")
+    text2.move(50, 30)
+    text2.text("PRESENTS")
     text.append(text2)
+
+    text3 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text3.move(15, 50)
+    text3.text("SpaceFighter for")
+    text.append(text3)
+
+    text4 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text4.move(50, 70)
+    text4.text("PyBadge")
+    text.append(text4)
+
+    text5 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text5.move(35, 110)
+    text5.text("PRESS START")
+    text.append(text5)
 
     # set background to image 0 in the image bank and size (10x8 tiles of size 16x16)
     background = stage.Grid(image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y )
@@ -126,7 +142,7 @@ def menu_scene():
     # creating a stage for the background to show up on and set fps to 60
     game = stage.Stage(ugame.display, constants.FPS)
 
-    # set layers of sprites, they will show up in order
+     #set layers of sprites, they will show up in order
     game.layers = text + [background]
 
     # render the sprites
@@ -141,7 +157,7 @@ def menu_scene():
             game_scene()
 
         # redraw the sprites
-        game.tick()
+        game.tick()#
 
 # this is the game scene function
 def game_scene():
@@ -322,8 +338,62 @@ def game_scene():
                             score_text.move(1,1)
                             score_text.text("Score: {0}".format(score))
 
+         #frame check if any aliens are touching the ship
+        for alien_number in range(len(aliens)):
+            if aliens[alien_number].x > 0:
+                if stage.collide(aliens[alien_number].x + 1, aliens[alien_number].y,
+                                 aliens[alien_number].x + 15, aliens[alien_number].y + 15,
+                                 ship.x, ship.y,
+                                 ship.x + 15, ship.y + 15):
+                    #alien hits the ship
+                    crash_sound = open("crash.wav", 'rb')
+                    sound.play(crash_sound)
+                    sound.stop
+                    time.sleep(3.0)
+                    game_over_scene(score)
+
         # redraw the sprites
         game.render_sprites(lasers + aliens + [ship])
+        game.tick()
+
+def game_over_scene(final_score):
+
+    #image bank for CircuitPython
+    image_bank_2 = stage.Bank.from_bmp16("mt_game_studio.bmp")
+
+    #set background to image 0
+    background = stage.Grid(image_bank_2, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y)
+
+    #add text objects
+    text = []
+    text1 = stage.Text(width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text1.move(22,20)
+    text1.text("Final Score: {:0>2d}".format(final_score))
+    text.append(text1)
+
+    text2 = stage.Text(width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text2.move(43,60)
+    text2.text("GAME OVER")
+    text.append(text2)
+
+    text3 = stage.Text(width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text3.move(32,110)
+    text3.text("PRESS SELECT")
+    text.append(text3)
+
+    #create a stage for the background to show up on
+    game = stage.Stage(ugame.display, constants.FPS)
+    game.layers = text + [background]
+    game.render_block()
+
+    #game loop
+    while True:
+        #get user input
+        keys = ugame.buttons.get_pressed()
+        if keys & ugame.K_SELECT != 0:
+            supervisor.reload()
+
+    #update game logic
         game.tick()
 
 if __name__ == "__main__":
