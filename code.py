@@ -106,10 +106,10 @@ def splash_scene():
 # this is the menu scene function 
 def menu_scene():
 
-    # the image banks for CircuitPython menu
+    # the image banks for CircuitPython menu scene
     image_bank_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
 
-    # add the text objects
+    # menu scene text
     text = []
     text1 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
     text1.move(10, 10)
@@ -154,6 +154,67 @@ def menu_scene():
         keys = ugame.buttons.get_pressed()
 
         if keys & ugame.K_START != 0:
+            instructions_scene()
+
+        # redraw the sprites
+        game.tick()#
+
+def instructions_scene():
+
+    # the image banks for CircuitPython menu
+    image_bank_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
+
+    # add the text objects
+    text = []
+    text1 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text1.move(10, 10)
+    text1.text("How to play:")
+    text.append(text1)
+    
+    text2 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text2.move(10, 30)
+    text2.text("B button: shoot")
+    text.append(text2)
+
+    text3 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text3.move(10, 50)
+    text3.text("D pad: move ship")
+    text.append(text3)
+
+    text4 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text4.move(5, 70)
+    text4.text("you will score back")
+    text.append(text4)
+
+    text5 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text5.move(5, 80)
+    text5.text("if you miss a ship")
+    text.append(text5)
+
+    text6 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text6.move(10, 110)
+    text6.text("GET READY TO PLAY!")
+    text.append(text6)
+
+    # set background to image 0 in the image bank and size (10x8 tiles of size 16x16)
+    background = stage.Grid(image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y )
+
+    # creating a stage for the background to show up on and set fps to 60
+    game = stage.Stage(ugame.display, constants.FPS)
+
+     #set layers of sprites, they will show up in order
+    game.layers = text + [background]
+
+    # render the sprites
+    game.render_block()
+
+    # game loop
+    while True:
+    # get user input
+        keys = ugame.buttons.get_pressed()
+
+        if keys & ugame.K_START != 0:
+            time.sleep(10.0)
             game_scene()
 
         # redraw the sprites
